@@ -1,6 +1,8 @@
 package com.devsuperior.dsmeta.services;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +26,17 @@ public class SaleService {
 		return new SaleMinDTO(entity);
 	}
 
-	public List<SalesSummaryDTO> getSalesSummary(LocalDate minDate, LocalDate maxDate){
-		return repository.findSalesSummary(minDate, maxDate);
+	public List<SalesSummaryDTO> getSalesSummary(String minDate, String maxDate){
+
+		LocalDate endDate = (maxDate != null) ? LocalDate.parse(maxDate) : LocalDate.now();
+		LocalDate startDate;
+
+		if(minDate != null){
+			startDate = LocalDate.parse(minDate);
+		}else{
+			startDate = endDate.minusYears(1L);
+		}
+
+		return repository.findSalesSummary(startDate, endDate);
 	}
 }

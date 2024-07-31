@@ -18,4 +18,5 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
             "WHERE sa.date BETWEEN :minDate AND :maxDate " +
             "GROUP BY s.name ")
     List<SalesSummaryDTO> findSalesSummary(@Param("minDate")LocalDate minDate, @Param("maxDate") LocalDate maxDate);
+
 }
