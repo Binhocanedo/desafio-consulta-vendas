@@ -2,6 +2,7 @@ package com.devsuperior.dsmeta.repositories;
 
 import com.devsuperior.dsmeta.dto.ResponseReportDTO;
 import com.devsuperior.dsmeta.dto.SalesSummaryDTO;
+import com.devsuperior.dsmeta.dto.SellerPerSaleDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.devsuperior.dsmeta.entities.Sale;
@@ -20,6 +21,10 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
             "GROUP BY s.name ")
     List<SalesSummaryDTO> findSalesSummary(@Param("minDate")LocalDate minDate, @Param("maxDate") LocalDate maxDate);
 
-    @Query(value = "SELECT new ResponseReportDTO()")
-    List<ResponseReportDTO> findReport(@Param("minDate") LocalDate minDate, @Param("maxDate") LocalDate maxDate);
+    @Query(value = "SELECT new SellerPerSaleDTO(s.id, sa.date, SUM(sa.amount), s.name) " +
+            "FROM Sale sa " +
+            "JOIN sa.seller s " +
+            "WHERE sa.date BETWEEN :minDate AND :maxDate " +
+            "GROUP BY s.name ")
+    List<SellerPerSaleDTO> findReport(@Param("minDate") LocalDate minDate, @Param("maxDate") LocalDate maxDate);
 }

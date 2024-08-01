@@ -1,5 +1,6 @@
 package com.devsuperior.dsmeta.controllers;
 
+import com.devsuperior.dsmeta.dto.ResponseReportDTO;
 import com.devsuperior.dsmeta.dto.SalesSummaryDTO;
 import com.devsuperior.dsmeta.entities.Sale;
 import org.apache.tomcat.jni.Local;
@@ -27,9 +28,9 @@ public class SaleController {
 	}
 
 	@GetMapping(value = "/report")
-	public ResponseEntity<?> getReport() {
-		// TODO
-		return null;
+	public ResponseEntity<ResponseReportDTO> getReport(@RequestParam(value = "minDate", required = false) String minDate, @RequestParam(value = "maxDate", required = false) String maxDate) {
+		ResponseReportDTO report = service.getReportSellers(minDate, maxDate);
+		return ResponseEntity.ok(report);
 	}
 
 	@GetMapping(value = "/summary")

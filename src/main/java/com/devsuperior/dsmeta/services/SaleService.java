@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.devsuperior.dsmeta.dto.SalesSummaryDTO;
 import com.devsuperior.dsmeta.dto.ResponseReportDTO;
+import com.devsuperior.dsmeta.dto.SellerPerSaleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +40,22 @@ public class SaleService {
 		return repository.findSalesSummary(startDate, endDate);
 	}
 
-	public List<ResponseReportDTO> getReportSellers(String minDate, String maxDate){
-		return null;
+	public ResponseReportDTO getReportSellers(String minDate, String maxDate){
+
+		LocalDate endDate = (maxDate != null) ? LocalDate.parse(maxDate) : LocalDate.now();
+		LocalDate startDate;
+
+		if(minDate != null){
+			startDate = LocalDate.parse(minDate);
+		}else{
+			startDate = endDate.minusYears(1L);
+		}
+
+		List<SellerPerSaleDTO> report = repository.findReport(startDate, endDate);
+
+		ResponseReportDTO response = new ResponseReportDTO();
+		response.setContent(report);
+
+		return response;
 	}
 }
