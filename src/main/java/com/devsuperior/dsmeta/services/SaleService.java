@@ -1,12 +1,11 @@
 package com.devsuperior.dsmeta.services;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
 import com.devsuperior.dsmeta.dto.SalesSummaryDTO;
+import com.devsuperior.dsmeta.dto.ResponseReportDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,5 +37,9 @@ public class SaleService {
 		}
 
 		return repository.findSalesSummary(startDate, endDate);
+	}
+
+	public List<ResponseReportDTO> getReportSellers(String minDate, String maxDate){
+		return null;
 	}
 }
