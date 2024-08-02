@@ -41,15 +41,16 @@ public class SaleService {
 		return repository.findSalesSummary(startDate, endDate);
 	}
 
-	public ResponseReportDTO getReportSellers(String minDate, String maxDate, String name){
+	public ResponseReportDTO getReportSellers(String name, String minDate, String maxDate){
 
-		LocalDate startDate = minDate != null ? LocalDate.parse(minDate) : LocalDate.now().minusYears(1);
 		LocalDate endDate = maxDate != null ? LocalDate.parse(maxDate) : LocalDate.now();
+		LocalDate startDate = minDate != null ? LocalDate.parse(minDate) : endDate.minusYears(1L);
+		String nameFilter = (name != null && !name.isEmpty()) ? name : "";
+
 
 		List<SellerPerSaleDTO> report = repository.findReport(name, startDate, endDate);
 		ResponseReportDTO response = new ResponseReportDTO();
 		response.setContent(report);
-
 		return response;
 	}
 }
