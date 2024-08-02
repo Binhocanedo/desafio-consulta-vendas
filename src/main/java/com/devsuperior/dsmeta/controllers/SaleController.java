@@ -28,8 +28,10 @@ public class SaleController {
 	}
 
 	@GetMapping(value = "/report")
-	public ResponseEntity<ResponseReportDTO> getReport(@RequestParam(value = "minDate", required = false) String minDate, @RequestParam(value = "maxDate", required = false) String maxDate) {
-		ResponseReportDTO report = service.getReportSellers(minDate, maxDate);
+	public ResponseEntity<ResponseReportDTO> getReport(@RequestParam(value = "name", required = false) String name,
+													   @RequestParam(value = "minDate", required = false) String minDate,
+													   @RequestParam(value = "maxDate", required = false) String maxDate) {
+		ResponseReportDTO report = service.getReportSellers(name, minDate, maxDate);
 		return ResponseEntity.ok(report);
 	}
 

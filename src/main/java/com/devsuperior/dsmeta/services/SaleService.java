@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.devsuperior.dsmeta.dto.SalesSummaryDTO;
 import com.devsuperior.dsmeta.dto.ResponseReportDTO;
 import com.devsuperior.dsmeta.dto.SellerPerSaleDTO;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,19 +41,12 @@ public class SaleService {
 		return repository.findSalesSummary(startDate, endDate);
 	}
 
-	public ResponseReportDTO getReportSellers(String minDate, String maxDate){
+	public ResponseReportDTO getReportSellers(String minDate, String maxDate, String name){
 
-		LocalDate endDate = (maxDate != null) ? LocalDate.parse(maxDate) : LocalDate.now();
-		LocalDate startDate;
+		LocalDate startDate = minDate != null ? LocalDate.parse(minDate) : LocalDate.now().minusYears(1);
+		LocalDate endDate = maxDate != null ? LocalDate.parse(maxDate) : LocalDate.now();
 
-		if(minDate != null){
-			startDate = LocalDate.parse(minDate);
-		}else{
-			startDate = endDate.minusYears(1L);
-		}
-
-		List<SellerPerSaleDTO> report = repository.findReport(startDate, endDate);
-
+		List<SellerPerSaleDTO> report = repository.findReport(name, startDate, endDate);
 		ResponseReportDTO response = new ResponseReportDTO();
 		response.setContent(report);
 

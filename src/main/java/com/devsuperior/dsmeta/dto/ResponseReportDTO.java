@@ -10,9 +10,7 @@ public class ResponseReportDTO {
 
     public ResponseReportDTO(){}
 
-    public List<SellerPerSaleDTO> getContent() {
-        return content;
-    }
+    public List<SellerPerSaleDTO> getContent() {return content;}
 
     public void setContent(List<SellerPerSaleDTO> content) {
         this.content = content;
