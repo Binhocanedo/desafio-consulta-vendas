@@ -4,6 +4,8 @@ INSERT INTO tb_seller(name, email, phone) VALUES ('Padme', 'padme@gmail.com', '9
 INSERT INTO tb_seller(name, email, phone) VALUES ('Thor Odinson', 'thor@gmail.com', '997711148');
 INSERT INTO tb_seller(name, email, phone) VALUES ('Anakin', 'any@gmail.com', '844768748');
 
+INSERT INTO tb_sales(seller_id,visited,deals,amount,date) VALUES (3,121,74,1342.0, '2023-10-09');
+INSERT INTO tb_sales(seller_id,visited,deals,amount,date) VALUES (2,122,67,2365.0, '2024-01-26');
 INSERT INTO tb_sales(seller_id,visited,deals,amount,date) VALUES (1,121,67,18196.0,'2023-06-16');
 INSERT INTO tb_sales(seller_id,visited,deals,amount,date) VALUES (2,26,14,4255.0,'2023-06-14');
 INSERT INTO tb_sales(seller_id,visited,deals,amount,date) VALUES (3,55,42,13249.0,'2023-06-14');
