@@ -12,14 +12,16 @@ public class SellerPerSaleDTO {
     private Double amount;
     private String sellerName;
     private String email;
+    private String phone;
 
     public SellerPerSaleDTO(){}
-    public SellerPerSaleDTO(Long id, LocalDate date, Double amount, String sellerName, String email) {
+    public SellerPerSaleDTO(Long id, LocalDate date, Double amount, String sellerName, String email, String phone) {
         this.id = id;
         this.date = date;
         this.amount = amount;
         this.sellerName = sellerName;
         this.email = email;
+        this.phone = phone;
     }
 
     public Long getId() {
@@ -44,5 +46,13 @@ public class SellerPerSaleDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

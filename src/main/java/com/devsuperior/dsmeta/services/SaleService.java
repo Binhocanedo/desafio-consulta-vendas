@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.devsuperior.dsmeta.dto.SalesSummaryDTO;
 import com.devsuperior.dsmeta.dto.ResponseReportDTO;
 import com.devsuperior.dsmeta.dto.SellerPerSaleDTO;
+import com.devsuperior.dsmeta.masked.MaskApply;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,9 @@ public class SaleService{
 
 	@Autowired
 	private SaleRepository repository;
+
+	@Autowired
+	private List<MaskApply> maskApplyList;
 
 	public SaleMinDTO findById(Long id) {
 		Optional<Sale> result = repository.findById(id);
@@ -51,16 +55,14 @@ public class SaleService{
 		}
 
 
-		List<SellerPerSaleDTO> report = repository.findReport(nameFilter, startDate, endDate);
-
-		List<SellerPerSaleDTO> maskedReport = report.stream().peek(seller ->{
-			String email = seller.getEmail();
-			String maskedEmail = email.replaceAll("(^.).*(.@)", "$1***$2");
-			seller.setEmail(maskedEmail);
-        }).collect(Collectors.toList());
+		List<SellerPerSaleDTO> report = repository.findReport(nameFilter, startDate, endDate).stream().peek(seller ->{
+			maskApplyList.forEach(mask -> {
+				mask.applyMask(seller);
+			});
+        }).toList();
 
 		ResponseReportDTO response = new ResponseReportDTO();
-		response.setContent(maskedReport);
+		response.setContent(report);
 
 		return response;
 	}

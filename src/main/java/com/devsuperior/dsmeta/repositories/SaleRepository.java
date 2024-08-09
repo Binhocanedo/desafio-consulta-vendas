@@ -21,7 +21,7 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
             "GROUP BY s.name ")
     List<SalesSummaryDTO> findSalesSummary(@Param("minDate")LocalDate minDate, @Param("maxDate") LocalDate maxDate);
 
-    @Query(value = "SELECT new SellerPerSaleDTO(s.id, sa.date, SUM(sa.amount), s.name, s.email) " +
+    @Query(value = "SELECT new SellerPerSaleDTO(s.id, sa.date, SUM(sa.amount), s.name, s.email, s.phone) " +
             "FROM Sale sa " +
             "JOIN sa.seller s " +
             "WHERE LOWER(s.name) LIKE LOWER(CONCAT('%', :name, '%')) AND sa.date BETWEEN :minDate AND :maxDate " +
