@@ -1,25 +1,28 @@
 package com.devsuperior.dsmeta.services;
 
+import com.devsuperior.dsmeta.dto.ResponseReportDTO;
+import com.devsuperior.dsmeta.dto.SaleMinDTO;
+import com.devsuperior.dsmeta.dto.SalesSummaryDTO;
+import com.devsuperior.dsmeta.dto.SellerPerSaleDTO;
+import com.devsuperior.dsmeta.entities.Sale;
+import com.devsuperior.dsmeta.entities.Seller;
+import com.devsuperior.dsmeta.repositories.SaleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import com.devsuperior.dsmeta.dto.SalesSummaryDTO;
-import com.devsuperior.dsmeta.dto.ResponseReportDTO;
-import com.devsuperior.dsmeta.dto.SellerPerSaleDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.devsuperior.dsmeta.dto.SaleMinDTO;
-import com.devsuperior.dsmeta.entities.Sale;
-import com.devsuperior.dsmeta.repositories.SaleRepository;
 
 @Service
 public class SaleService{
 
 	@Autowired
 	private SaleRepository repository;
+
+//	Autowired
+//	private SellerMapper saleMapper;
 
 	public SaleMinDTO findById(Long id) {
 		Optional<Sale> result = repository.findById(id);
@@ -64,4 +67,15 @@ public class SaleService{
 
 		return response;
 	}
+
+    public List<Seller> getRelatorio(String minDate, String maxDate) {
+
+		LocalDate startDate = LocalDate.parse(minDate);
+		LocalDate endDate = LocalDate.parse(maxDate);
+
+
+		List<Seller> buscaRelatorio = repository.findSeller(startDate, endDate);
+
+		return null;
+    }
 }
