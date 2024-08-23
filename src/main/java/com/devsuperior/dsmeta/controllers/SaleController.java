@@ -1,5 +1,6 @@
 package com.devsuperior.dsmeta.controllers;
 
+import com.devsuperior.dsmeta.dto.RelatorioDTO;
 import com.devsuperior.dsmeta.dto.ResponseReportDTO;
 import com.devsuperior.dsmeta.dto.SaleMinDTO;
 import com.devsuperior.dsmeta.dto.SalesSummaryDTO;
@@ -40,9 +41,9 @@ public class SaleController {
 	}
 
 	@GetMapping(value = "/relatorio")
-	public ResponseEntity<List<Seller>> getSeller (@RequestParam(value = "minDate", required = false) String minDate,
-												   @RequestParam(value = "maxDate", required = false) String maxDate){
-		List<Seller> relatorio = service.getRelatorio(minDate, maxDate);
+	public ResponseEntity<List<RelatorioDTO>> getSeller (@RequestParam(value = "minDate", required = false) String minDate,
+												         @RequestParam(value = "maxDate", required = false) String maxDate){
+		List<RelatorioDTO> relatorio = service.getRelatorio(minDate, maxDate);
 		return ResponseEntity.ok(relatorio);
 	}
 }

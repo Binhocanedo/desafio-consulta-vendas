@@ -5,13 +5,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.devsuperior.dsmeta.dto.SalesSummaryDTO;
-import com.devsuperior.dsmeta.dto.ResponseReportDTO;
-import com.devsuperior.dsmeta.dto.SellerPerSaleDTO;
+import com.devsuperior.dsmeta.dto.*;
+import com.devsuperior.dsmeta.mappers.SellerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.devsuperior.dsmeta.dto.SaleMinDTO;
 import com.devsuperior.dsmeta.entities.Sale;
 import com.devsuperior.dsmeta.repositories.SaleRepository;
 
@@ -20,6 +18,9 @@ public class SaleService{
 
 	@Autowired
 	private SaleRepository repository;
+
+	@Autowired
+	private SellerMapper mapper;
 
 	public SaleMinDTO findById(Long id) {
 		Optional<Sale> result = repository.findById(id);
@@ -63,5 +64,10 @@ public class SaleService{
 		response.setContent(maskedReport);
 
 		return response;
+	}
+
+	public List<RelatorioDTO> getRelatorio(String minDate, String maxDate){
+		List<RelatorioDTO> relatorioDTO = repository.findRelatorio(LocalDate.parse(minDate), LocalDate.parse(maxDate));
+		return mapper.sellerToDTO(relatorioDTO);
 	}
 }
