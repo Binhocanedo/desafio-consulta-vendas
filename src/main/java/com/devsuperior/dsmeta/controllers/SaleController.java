@@ -1,17 +1,14 @@
 package com.devsuperior.dsmeta.controllers;
 
 import com.devsuperior.dsmeta.dto.ResponseReportDTO;
+import com.devsuperior.dsmeta.dto.SaleMinDTO;
 import com.devsuperior.dsmeta.dto.SalesSummaryDTO;
-import com.devsuperior.dsmeta.entities.Sale;
-import org.apache.tomcat.jni.Local;
+import com.devsuperior.dsmeta.entities.Seller;
+import com.devsuperior.dsmeta.services.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.devsuperior.dsmeta.dto.SaleMinDTO;
-import com.devsuperior.dsmeta.services.SaleService;
-
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -40,5 +37,12 @@ public class SaleController {
 															@RequestParam(value = "maxDate", required = false) String maxDate) {
 		List<SalesSummaryDTO> summary = service.getSalesSummary(minDate, maxDate);
 		return ResponseEntity.ok(summary);
+	}
+
+	@GetMapping(value = "/relatorio")
+	public ResponseEntity<List<Seller>> getSeller (@RequestParam(value = "minDate", required = false) String minDate,
+												   @RequestParam(value = "maxDate", required = false) String maxDate){
+		List<Seller> relatorio = service.getRelatorio(minDate, maxDate);
+		return ResponseEntity.ok(relatorio);
 	}
 }
